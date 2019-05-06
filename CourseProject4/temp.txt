@@ -1,0 +1,199 @@
+try {
+            String ss = null;
+            Runtime obj = null;
+            Process p = Runtime.getRuntime().exec("cmd.exe /c start" + "wmic bios get smbiosbiosversion");
+            BufferedWriter writeer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+//            writeer.write("dir");
+//            writeer.flush();
+            File file = new File("Data3.bin");
+            PrintWriter out = new PrintWriter(file.getAbsoluteFile());
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            System.out.println("Here is the standard output of the command:\n");
+            while ((ss = stdInput.readLine()) != null) {
+                System.out.println(ss);
+            }
+            System.out.println("Here is the standard error of the command (if any):\n");
+            while ((ss = stdError.readLine()) != null) {
+                System.out.println(ss);
+                out.print(ss);
+            }
+
+            out.close();
+        } catch (IOException e) {
+            System.out.println("FROM CATCH" + e.toString());
+        }
+        //wmic BIOS get name, version, serialnumber wmic bios get smbiosbiosversion
+//        ProcessBuilder builder = new ProcessBuilder("nbtstat", "/c", "cd C:\\Users\\Чеслав\\cmd.exe");
+//        builder.redirectErrorStream(true);
+//        Process p = builder.start();
+//        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//        String line;
+//        while (true) {
+//            line = r.readLine();
+//            if (line == null) {
+//                break;
+//            }
+//
+//
+//            System.out.println(line);
+//        }
+//        File file = new File("Data.txt");
+//
+//        PrintWriter out = new PrintWriter(file.getAbsoluteFile());
+//
+//        out.print(line);
+//        out.close();
+
+
+
+
+ ProcessBuilder builder = new ProcessBuilder(
+                "cmd.exe", "/c", "wmic  Path Win32_VideoController Get Name /Format:List");
+        builder.redirectErrorStream(true);
+        Process p = builder.start();
+        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream(), "CP866"));
+        String line;
+        while (true) {
+            line = r.readLine();
+            if (line == null) { break; }
+            System.out.print(line);
+        }
+
+
+
+
+
+
+
+ProcessBuilder builder = new ProcessBuilder(
+//                "cmd.exe", "/c", "wmic BIOS get name, version, serialnumber");
+//        builder.redirectErrorStream(true);
+//        Process p = builder.start();
+//        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream(), "CP866"));
+//        String line;
+//        while (true) {
+//            line = r.readLine();
+//            if (line == null) { break; }
+//            System.out.println(line);
+//        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//import java.io.BufferedReader;
+//import java.io.IOException;
+//import java.io.InputStreamReader;
+
+//cmd.exe /c start" + "wmic bios get smbiosbiosversion
+//Get-Process -Name cmd | Format-List name, id, path, modules, starttime
+
+
+
+//    public static void UserTiimeGetInfo() throws Exception{
+//        //String command = "powershell.exe  your command";
+//        //Getting the version
+//        String command = "powershell.exe  Get-Process -Name cmd | Format-List name, id, path, modules, starttime";
+//        // Executing the command
+//        Process powerShellProcess = Runtime.getRuntime().exec(command);
+//        // Getting the results
+//        powerShellProcess.getOutputStream().close();
+//        String line;
+//        System.out.println("Standard Output:");
+//        BufferedReader stdout = new BufferedReader(new InputStreamReader(
+//                powerShellProcess.getInputStream()));
+//        while ((line = stdout.readLine()) != null) {
+//            System.out.println(line);
+//        }
+//        stdout.close();
+//        System.out.println("Standard Error:");
+//        BufferedReader stderr = new BufferedReader(new InputStreamReader(
+//                powerShellProcess.getErrorStream()));
+//        while ((line = stderr.readLine()) != null) {
+//            System.out.println(line);
+//        }
+//        stderr.close();
+//        System.out.println("Done");
+//    }
+
+
+//Лежало в Main
+//        builder = new ProcessBuilder(
+//                "cmd.exe", "/c", "wmic bios get smbiosbiosversion");
+//        builder.redirectErrorStream(true);
+//        p = builder.start();
+//        r = new BufferedReader(new InputStreamReader(p.getInputStream(), "CP866"));
+//        while (true) {
+//            line = r.readLine();
+//            if (line == null) { break; }
+//            System.out.println(line);
+//        }
+
+//        builder = new ProcessBuilder(
+//                "cmd.exe", "/c", "wmic  Path Win32_VideoController Get Name /Format:List");
+//        builder.redirectErrorStream(true);
+//        p = builder.start();
+//        r = new BufferedReader(new InputStreamReader(p.getInputStream(), "CP866"));
+//        while (true) {
+//            line = r.readLine();
+//            if (line == null) { break; }
+//            System.out.print(line);
+//        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ public static void UptimeGetInfo() throws Exception{
+        ProcessBuilder builder = new ProcessBuilder(
+                "cmd.exe", "/c", "systeminfo | find \"Время загрузки системы:\"");
+        builder.redirectErrorStream(true);
+        Process p = builder.start();
+        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream(), "CP866"));
+        String line;
+        while (true) {
+            line = r.readLine();
+            if (line == null) { break; }
+            System.out.println(line);
+        }
+    }
+
+
+    public static void UserTiimeGetInfo() throws Exception{
+            ProcessBuilder builder = new ProcessBuilder(
+                    "cmd.exe", "/c", "systeminfo | find \"Зарегистрированный владелец:\"");
+            builder.redirectErrorStream(true);
+            Process p = builder.start();
+            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream(), "CP866"));
+            String line;
+            while (true) {
+                line = r.readLine();
+                if (line == null) { break; }
+                System.out.println(line);
+            }
+
+
+
+
+
