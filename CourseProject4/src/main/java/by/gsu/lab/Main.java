@@ -160,7 +160,31 @@ public class Main {
 //        System.out.println("Done");
 //
 //    }
-
+    public static void Monitor_Get_Info() throws Exception{
+        //String command = "powershell.exe  your command";
+        //Getting the version
+        String command = "powershell.exe  Get-WmiObject win32_DesktopMonitor";
+        // Executing the command
+        Process powerShellProcess = Runtime.getRuntime().exec(command);
+        // Getting the results
+        powerShellProcess.getOutputStream().close();
+        String line;
+        System.out.println("Standard Output:");
+        BufferedReader stdout = new BufferedReader(new InputStreamReader(
+                powerShellProcess.getInputStream(),"CP866"));
+        while ((line = stdout.readLine()) != null) {
+            System.out.println(line);
+        }
+        stdout.close();
+        System.out.println("Standard Error:");
+        BufferedReader stderr = new BufferedReader(new InputStreamReader(
+                powerShellProcess.getErrorStream()));
+        while ((line = stderr.readLine()) != null) {
+            System.out.println(line);
+        }
+        stderr.close();
+        System.out.println("Done");
+    }
     public static void HDD_Sections_Get_Info() throws Exception{
         //String command = "powershell.exe  your command";
         //Getting the version
@@ -274,7 +298,7 @@ public class Main {
         String line;
         System.out.println("Standard Output:");
         BufferedReader stdout = new BufferedReader(new InputStreamReader(
-                powerShellProcess.getInputStream()));
+                powerShellProcess.getInputStream(),"CP866"));
         while ((line = stdout.readLine()) != null) {
             System.out.println(line);
         }
@@ -321,9 +345,10 @@ public class Main {
 //        BIOSgetInfo();
   //      VideogetInfo();
 //        System.out.print("\n");
- //       UptimeGetInfo();
-//        UserTiimeGetInfo();
+       // UptimeGetInfo();
+       // UserTiimeGetInfo();
   //        CPUGetInfo();
+        Monitor_Get_Info();
         //HDD_Sections_Get_Info();
         //HDD_Get_Info();
         //Keyboard_Get_Info();
