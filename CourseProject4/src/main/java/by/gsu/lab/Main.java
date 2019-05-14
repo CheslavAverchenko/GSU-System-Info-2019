@@ -58,6 +58,21 @@ public class Main {
         System.out.println("Done");
     }
 
+//    public static void MouseGetInfo() throws Exception {
+//        ProcessBuilder builder1 = new ProcessBuilder(
+//                "cmd.exe", "/c", "wmic path Win32_PointingDevice");
+//        builder1.redirectErrorStream(true);
+//        Process p = builder1.start();
+//        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream(), "CP866"));
+//        String line;
+//        while (true) {
+//            line = r.readLine();
+//            if (line == null) {
+//                break;
+//            }
+//            System.out.println(line);
+//        }
+//    }
     public static void UptimeGetInfo() throws Exception{
         ProcessBuilder builder = new ProcessBuilder(
                 "cmd.exe", "/c", "systeminfo | find \"Время загрузки системы:\"");
@@ -261,6 +276,33 @@ public class Main {
         stderr.close();
         System.out.println("Done");
     }
+
+    public static void Mouse_Get_Info() throws Exception{
+        //String command = "powershell.exe  your command";
+        //Getting the version
+        String command = "powershell.exe  Get-WmiObject win32_PointingDevice";
+        // Executing the command
+        Process powerShellProcess = Runtime.getRuntime().exec(command);
+        // Getting the results
+        powerShellProcess.getOutputStream().close();
+        String line;
+        System.out.println("Standard Output:");
+        BufferedReader stdout = new BufferedReader(new InputStreamReader(
+                powerShellProcess.getInputStream(),"CP866"));
+        while ((line = stdout.readLine()) != null) {
+            System.out.println(line);
+        }
+        stdout.close();
+        System.out.println("Standard Error:");
+        BufferedReader stderr = new BufferedReader(new InputStreamReader(
+                powerShellProcess.getErrorStream()));
+        while ((line = stderr.readLine()) != null) {
+            System.out.println(line);
+        }
+        stderr.close();
+        System.out.println("Done");
+    }
+
     public static void CPUGetInfo() throws Exception{
         //String command = "powershell.exe  your command";
         //Getting the version
@@ -340,15 +382,15 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-
-
+            //MouseGetInfo();
+          Mouse_Get_Info();
 //        BIOSgetInfo();
   //      VideogetInfo();
 //        System.out.print("\n");
        // UptimeGetInfo();
        // UserTiimeGetInfo();
   //        CPUGetInfo();
-        Monitor_Get_Info();
+        //Monitor_Get_Info();
         //HDD_Sections_Get_Info();
         //HDD_Get_Info();
         //Keyboard_Get_Info();
